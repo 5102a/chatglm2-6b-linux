@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  worker:
+    volumes:
+      - ${LLM}:/llm
+      - huggingface:/root/.cache/huggingface
+    ports:
+      - '8501:8501'
+    image: lc5102a/chatglm2-6b:v1.0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    entrypoint: ['streamlit', 'run', 'llm/web_demo2.py']
+volumes:
+  huggingface:
