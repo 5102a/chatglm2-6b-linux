@@ -7,8 +7,10 @@ import torch.utils.data
 from transformers import AutoTokenizer, AutoModel
 from tqdm import tqdm
 
-tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm2-6b", trust_remote_code=True)
-model = AutoModel.from_pretrained("THUDM/chatglm2-6b", trust_remote_code=True).bfloat16().cuda()
+tokenizer = AutoTokenizer.from_pretrained(os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), "THUDM/chatglm2-6b"), trust_remote_code=True)
+model = AutoModel.from_pretrained(os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), "THUDM/chatglm2-6b"), trust_remote_code=True).bfloat16().cuda()
 
 choices = ["A", "B", "C", "D"]
 choice_tokens = [tokenizer.encode(choice, add_special_tokens=False)[0] for choice in choices]

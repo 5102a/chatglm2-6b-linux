@@ -1,0 +1,3 @@
+[submodule "THUDM/chatglm2-6b"]
+	path = THUDM/chatglm2-6b
+	url = https://huggingface.co/THUDM/chatglm2-6b

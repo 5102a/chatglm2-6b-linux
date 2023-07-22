@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from transformers import AutoTokenizer, AutoModel
 import uvicorn, json, datetime
 import torch
+import os
 
 DEVICE = "cuda"
 DEVICE_ID = "0"
@@ -50,8 +51,10 @@ async def create_item(request: Request):
 
 
 if __name__ == '__main__':
-    tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm2-6b", trust_remote_code=True)
-    model = AutoModel.from_pretrained("THUDM/chatglm2-6b", trust_remote_code=True).cuda()
+    tokenizer = AutoTokenizer.from_pretrained(os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), "THUDM/chatglm2-6b"), trust_remote_code=True)
+    model = AutoModel.from_pretrained(os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), "THUDM/chatglm2-6b"), trust_remote_code=True).cuda()
     # 多显卡支持，使用下面三行代替上面两行，将num_gpus改为你实际的显卡数量
     # model_path = "THUDM/chatglm2-6b"
     # tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
